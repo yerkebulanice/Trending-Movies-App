@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieEntity: Decodable {
+struct TrendingMoviesEntity: Decodable {
     let movies: [Movie]
     
     enum CodingKeys: String, CodingKey {
@@ -17,9 +17,9 @@ struct MovieEntity: Decodable {
     struct Movie: Decodable {
         let id: Int
         let poster: String?
-        let title: String
-        let releaseDate: String
-        let rating: Double
+        let title: String?
+        let releaseDate: String?
+        let rating: Double?
         
         enum CodingKeys: String, CodingKey {
             case id = "id"
@@ -28,5 +28,16 @@ struct MovieEntity: Decodable {
             case releaseDate = "release_date"
             case rating = "vote_average"
         }
+        
+        init(movie: MovieEntity) {
+            self.id = Int(movie.id)
+            self.title = movie.title
+            self.poster = nil
+            self.releaseDate = nil
+            self.rating = nil
+        }
+        
     }
+    
+    
 }

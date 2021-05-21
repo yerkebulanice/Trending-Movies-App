@@ -59,10 +59,23 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUZ-wA-LXq">
+                        <rect key="frame" x="211" y="16" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="bwD-ZM-UCa"/>
+                            <constraint firstAttribute="height" constant="40" id="mre-HZ-gcB"/>
+                        </constraints>
+                        <state key="normal" image="star"/>
+                        <connections>
+                            <action selector="favoriteButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7aD-1z-qKn"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="4BG-IF-KUv" secondAttribute="trailing" constant="24" id="2e2-yd-VJX"/>
+                    <constraint firstAttribute="trailing" secondItem="xUZ-wA-LXq" secondAttribute="trailing" constant="40" id="6Dg-I0-Nq1"/>
                     <constraint firstAttribute="trailing" secondItem="rJ8-Cw-FPK" secondAttribute="trailing" constant="40" id="7Lf-JJ-gUk"/>
+                    <constraint firstItem="xUZ-wA-LXq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="VLS-b3-JVQ"/>
                     <constraint firstAttribute="bottom" secondItem="4BG-IF-KUv" secondAttribute="bottom" constant="16" id="cAP-IE-X69"/>
                     <constraint firstItem="rJ8-Cw-FPK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-16" id="i2n-uD-l1W"/>
                     <constraint firstItem="rJ8-Cw-FPK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="iG6-Jl-9KV"/>
@@ -75,6 +88,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="containerRatingView" destination="TCM-Qa-wuW" id="1rn-1T-OZx"/>
+                <outlet property="favoriteButton" destination="xUZ-wA-LXq" id="uMv-bz-veT"/>
                 <outlet property="movieTitleLabel" destination="4Ye-br-UeM" id="cIH-st-adK"/>
                 <outlet property="posterImageView" destination="4BG-IF-KUv" id="AU4-48-Tqf"/>
                 <outlet property="ratingLabel" destination="YE8-0G-U6X" id="vGZ-rk-8ZU"/>
@@ -84,6 +98,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="star" width="48" height="48"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

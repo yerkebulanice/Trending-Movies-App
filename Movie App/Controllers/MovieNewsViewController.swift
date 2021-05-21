@@ -13,7 +13,7 @@ class MovieNewsViewController: UIViewController {
     private let TrendingMoviesURL: String = "https://api.themoviedb.org/3/trending/movie/week?api_key=3b58e5009b70d3e88f6f07c61f02cb67"
     @IBOutlet weak var tableView: UITableView!
     private var pageNumber: Int = 1
-    private var movies: [MovieEntity.Movie] = [MovieEntity.Movie]() {
+    private var movies: [TrendingMoviesEntity.Movie] = [TrendingMoviesEntity.Movie]() {
         didSet {
             tableView.reloadData()
         }
@@ -22,6 +22,7 @@ class MovieNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(UINib(nibName: MovieCell.identifier, bundle: Bundle(for: MovieCell.self)), forCellReuseIdentifier: MovieCell.identifier)
         getTrendingMovies()
     }
@@ -41,7 +42,7 @@ extension MovieNewsViewController {
             case .success:
                 if let data = response.data {
                     do {
-                    let movieJSON = try JSONDecoder().decode(MovieEntity.self, from: data)
+                    let movieJSON = try JSONDecoder().decode(TrendingMoviesEntity.self, from: data)
                         self.movies += movieJSON.movies
 //                        print(movieJSON)
                     }catch let errorJSON {
