@@ -36,9 +36,7 @@ class CoreDataManager {
     func allMovies() -> [TrendingMoviesEntity.Movie] {
         let context = persistentContainer.viewContext
         let request: NSFetchRequest<MovieEntity> = MovieEntity.fetchRequest()
-        
         let movies = try? context.fetch(request)
-        
         return movies?.map( { TrendingMoviesEntity.Movie(movie: $0) } ) ?? []
     }
     
@@ -49,6 +47,9 @@ class CoreDataManager {
             let newMovie = MovieEntity(context: context)
             newMovie.id = Int64(movie.id)
             newMovie.title = movie.title
+            newMovie.releaseDate = movie.releaseDate
+            newMovie.rating = movie.rating ?? 0
+            newMovie.poster = movie.poster
         }
         save()
     }
@@ -60,6 +61,9 @@ class CoreDataManager {
                 let newMovie = MovieEntity(context: context)
                 newMovie.id = Int64(id)
                 newMovie.title = movie.title
+                newMovie.releaseDate = movie.releaseDate
+                newMovie.rating = movie.rating
+                newMovie.poster = movie.poster
             }
         }
         save()

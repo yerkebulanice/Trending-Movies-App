@@ -32,9 +32,9 @@ struct TrendingMoviesEntity: Decodable {
         init(movie: MovieEntity) {
             self.id = Int(movie.id)
             self.title = movie.title
-            self.poster = nil
-            self.releaseDate = nil
-            self.rating = nil
+            self.poster = movie.poster
+            self.releaseDate = movie.releaseDate
+            self.rating = movie.rating
         }
         
     }

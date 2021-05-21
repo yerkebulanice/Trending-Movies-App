@@ -16,14 +16,12 @@ class MovieEntity: NSManagedObject {
             let movies = try context.fetch(requestResult)
             if movies.count > 0 {
                 assert(movies.count == 1, "Duplicate found!!!")
-                
                 return movies[0]
             }
             
         } catch {
             print(error)
         }
-        
         return nil
     }
 }

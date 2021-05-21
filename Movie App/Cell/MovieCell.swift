@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 protocol DeleteMovie: NSObjectProtocol {
-    func wasDeleted(_ id: Int)
+    func wasDeleted(_ indexx: IndexPath)
 }
 
 class MovieCell: UITableViewCell {
@@ -22,7 +22,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet private weak var favoriteButton: UIButton!
     private let context = CoreDataManager.shared.persistentContainer.viewContext
     public weak var delegate: DeleteMovie?
-
+    public var indexPathRow: IndexPath = []
     public var movie: TrendingMoviesEntity.Movie? {
         didSet {
             if let movie = movie {
@@ -55,7 +55,7 @@ class MovieCell: UITableViewCell {
             if let _ = MovieEntity.findMovie(with: movie.id, context: context){
                 favoriteButton.setImage(UIImage(named: "star"), for: .normal)
                 CoreDataManager.shared.deleteMovie(with: movie.id)
-                delegate?.wasDeleted(movie.id)
+                delegate?.wasDeleted(self.indexPathRow)
             } else {
                 favoriteButton.setImage(UIImage(named: "starFilled"), for: .normal)
                 CoreDataManager.shared.addMovie(movie)
