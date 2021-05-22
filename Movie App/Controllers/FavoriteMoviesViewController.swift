@@ -8,8 +8,8 @@
 import UIKit
 
 class FavoriteMoviesViewController: UIViewController {
-
     @IBOutlet weak var tableView: UITableView!
+    let coreDataManager = CoreDataManager.shared
     private var movies: [TrendingMoviesEntity.Movie] = [] {
         didSet {
             if movies.count != oldValue.count {
@@ -17,7 +17,7 @@ class FavoriteMoviesViewController: UIViewController {
             }
         }
     }
-    var ids: [Int] = []
+//    var ids: [Int] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -43,6 +43,7 @@ class FavoriteMoviesViewController: UIViewController {
 //        print(ids)
         tableView.reloadData()
     }
+
 }
 
 extension FavoriteMoviesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -53,19 +54,39 @@ extension FavoriteMoviesViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
         cell.movie = movies[indexPath.row]
-        cell.indexPathRow = indexPath
+        cell.wasDeletedMovie = {
+            self.movies = self.coreDataManager.allMovies()
+            self.tableView.reloadData()
+        }
         return cell
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, -10, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.75) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+    }
 }
 
-extension FavoriteMoviesViewController: DeleteMovie {
-    func wasDeleted(_ indexx: IndexPath) {
-        tableView.beginUpdates()
-//        movies.remove(at: indexx.row)
-        tableView.deleteRows(at: [indexx as IndexPath], with: .automatic)
+// My PROTOCOL is not worked, i don't why
+extension FavoriteMoviesViewController: DeleteMovieProtocol {
+    func wasDeletedMovie(with movieId: Int) {
+        print("Works")
+        print(movieId)
+        var ids = 0
+        for id in 0..<movies.count {
+            if movieId == movies[id].id {
+                ids = id
+            }
+        }
+        let myIndexPath = IndexPath(row: ids, section: 0)
+        movies.remove(at: ids)
         tableView.reloadData()
-        tableView.endUpdates()
+        tableView.deleteRows(at: [myIndexPath], with: .left)
     }
 }
 

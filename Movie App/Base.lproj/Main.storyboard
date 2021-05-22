@@ -51,13 +51,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mmH-F4-X3M">
-                                <rect key="frame" x="0.0" y="44" width="414" height="320"/>
-                                <color key="backgroundColor" red="0.02334931493" green="0.5610099435" blue="0.31866523619999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="TZq-LL-fer"/>
-                                </constraints>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jrb-Aj-PaN">
                                 <rect key="frame" x="16" y="364" width="382" height="498"/>
                                 <color key="backgroundColor" systemColor="systemGray2Color"/>
@@ -117,6 +110,13 @@
                                     <action selector="favoriteButtonPressed:" destination="vjR-ON-3px" eventType="touchUpInside" id="xB8-k9-c2n"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mmH-F4-X3M">
+                                <rect key="frame" x="0.0" y="44" width="414" height="320"/>
+                                <color key="backgroundColor" red="0.02334931493" green="0.5610099435" blue="0.31866523619999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="320" id="TZq-LL-fer"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xlN-PI-0Wh"/>
                         <color key="backgroundColor" systemColor="systemGray2Color"/>
@@ -209,7 +209,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="IM8-oN-iX8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dpW-Tg-x9P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tabBarController id="YAd-YQ-c1W" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vwa-Rv-F4A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -221,6 +220,7 @@
                         <segue destination="CgW-Qx-0Cb" kind="relationship" relationship="viewControllers" id="4jg-t9-giR"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dpW-Tg-x9P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1207" y="207"/>
         </scene>

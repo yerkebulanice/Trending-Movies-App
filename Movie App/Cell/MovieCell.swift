@@ -8,8 +8,8 @@
 import UIKit
 import Kingfisher
 
-protocol DeleteMovie: NSObjectProtocol {
-    func wasDeleted(_ indexx: IndexPath)
+protocol DeleteMovieProtocol: NSObjectProtocol {
+    func wasDeletedMovie(with movieId: Int)
 }
 
 class MovieCell: UITableViewCell {
@@ -21,8 +21,8 @@ class MovieCell: UITableViewCell {
     @IBOutlet private weak var releaseDateLabel: UILabel!
     @IBOutlet private weak var favoriteButton: UIButton!
     private let context = CoreDataManager.shared.persistentContainer.viewContext
-    public weak var delegate: DeleteMovie?
-    public var indexPathRow: IndexPath = []
+    public weak var delegate: DeleteMovieProtocol? //My PROTOCOL is not worked, i don't why, so i used CALLBACK
+    public var wasDeletedMovie: (() -> Void) = {}
     public var movie: TrendingMoviesEntity.Movie? {
         didSet {
             if let movie = movie {
@@ -41,6 +41,7 @@ class MovieCell: UITableViewCell {
             }
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
@@ -50,16 +51,24 @@ class MovieCell: UITableViewCell {
         posterImageView.layer.masksToBounds = true
     }
 
-    @IBAction func favoriteButtonPressed(_ sender: Any) {
+    @IBAction func favoriteButtonPressed(_ sender: UIButton) {
         if let movie = movie {
             if let _ = MovieEntity.findMovie(with: movie.id, context: context){
                 favoriteButton.setImage(UIImage(named: "star"), for: .normal)
                 CoreDataManager.shared.deleteMovie(with: movie.id)
-                delegate?.wasDeleted(self.indexPathRow)
             } else {
                 favoriteButton.setImage(UIImage(named: "starFilled"), for: .normal)
                 CoreDataManager.shared.addMovie(movie)
             }
+//            deleteMovieFromFavorite(movie.id)
+            wasDeletedMovie()
         }
     }
+    // My PROTOCOL is not worked, i don't why, so i used CALLBACK
+    func deleteMovieFromFavorite(_ movieId: Int) {
+        self.delegate?.wasDeletedMovie(with: movieId)
+        print(type(of: movieId))
+        print(movieId)
+    }
+    
 }
